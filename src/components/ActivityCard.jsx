@@ -41,5 +41,5 @@ export default function ActivityCard({ activities }) {
         </div>
       </div>
     </div>
-  );
+  );//kfnf
 }
