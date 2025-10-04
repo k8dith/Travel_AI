@@ -55,17 +55,29 @@ export default function StepOne({ formData, onChange, onNext }) {
           </label>
           <input
             type="number"
+            min="250"
             value={formData.totalBudget || ''}
             onChange={(e) => onChange('totalBudget', e.target.value)}
-            placeholder="e.g., 1500"
+            placeholder="Minimum $250"
             className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-400 focus:outline-none"
           />
         </div>
 
         <button
-          onClick={onNext}
-          className="w-full bg-gradient-to-r from-blue-600 to-teal-600 text-white py-4 rounded-xl font-semibold hover:shadow-lg transition-all duration-200 hover:scale-105"
-        >
+        onClick={() => {
+          const budget = parseInt(formData.totalBudget);
+          if (!formData.from || !formData.startDate || !formData.endDate || !budget) {
+            alert('Please fill in all fields!');
+            return;
+          }
+          if (budget < 250) {
+            alert('Minimum budget is $250. Please increase your budget to continue.');
+            return;
+          }
+          onNext();
+        }}
+        className="w-full bg-gradient-to-r from-blue-600 to-teal-600 text-white py-4 rounded-xl font-semibold hover:shadow-lg transition-all duration-200 hover:scale-105"
+      >
           Continue to Budget Breakdown
         </button>
       </div>
